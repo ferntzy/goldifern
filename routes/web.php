@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\GroupMemberController;
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login'])->name('login.submit');
@@ -15,6 +16,10 @@ Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
 
 Route::get('register', [RegistrationController::class, 'showForm'])->name('register');
 Route::post('register', [RegistrationController::class, 'register'])->name('register.submit');
+
+Route::get('/members', [GroupMemberController::class, 'index'])->name('members.index');
+Route::post('/members/store', [GroupMemberController::class, 'store'])->name('members.store');
+Route::put('/members/update/{id}', [GroupMemberController::class, 'update'])->name('members.update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
